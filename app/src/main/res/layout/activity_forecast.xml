@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.weather.WeatherActivity">
+
+    <data>
+
+        <variable
+            name="location"
+            type="com.m7.openweather.data.model.SearchResult" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- back -->
+                <Button
+                    android:id="@+id/btn_back"
+                    android:foreground="?actionBarItemBackground"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:icon="@drawable/ic_back"
+                    app:iconSize="25dp"
+                    app:iconTint="?colorOnPrimary" />
+
+                <!-- title -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp"
+                    android:text="@{location.name ?? @string/forecast}"
+                    android:textColor="?colorOnPrimary"
+                    android:textSize="18sp"
+                    tools:text="@tools:sample/cities" />
+
+                <!-- search -->
+                <Button
+                    android:id="@+id/btn_search"
+                    android:foreground="?actionBarItemBackground"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:icon="@drawable/ic_search"
+                    app:iconSize="25dp"
+                    app:iconTint="?colorOnPrimary" />
+
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- forecast -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_forecasts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_forecast" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

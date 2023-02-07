@@ -2,9 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.home.MainActivity">
+    tools:context=".ui.weather.WeatherActivity">
 
     <data>
+
+        <variable
+            name="location"
+            type="com.m7.openweather.data.model.SearchResult" />
+
         <variable
             name="forecast"
             type="com.m7.openweather.data.model.WeatherResponse" />
@@ -14,20 +19,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- back -->
+                <Button
+                    android:id="@+id/btn_back"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:foreground="?actionBarItemBackground"
+                    app:icon="@drawable/ic_back"
+                    app:iconSize="25dp"
+                    app:iconTint="?colorOnPrimary" />
+
+                <!-- title -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp"
+                    android:text="@{location.name ?? @string/current_weather}"
+                    android:textColor="?colorOnPrimary"
+                    android:textSize="18sp"
+                    tools:text="@tools:sample/cities" />
+
+                <!-- search -->
+                <Button
+                    android:id="@+id/btn_search"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:foreground="?actionBarItemBackground"
+                    app:icon="@drawable/ic_search"
+                    app:iconSize="25dp"
+                    app:iconTint="?colorOnPrimary" />
+
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <!-- current weather -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_current_weather_info"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginVertical="50dp"
             app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toTopOf="@id/cv_current_weather"
+            app:layout_constraintBottom_toTopOf="@id/fab_forecast"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/teal_200"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:strokeColor="@color/green_500"
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,10 +105,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:foreground="?selectableItemBackground"
                     android:gravity="center"
+                    android:paddingHorizontal="50dp"
                     android:text="@{@string/f_fahrenheit(forecast.main.temp)}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/ic_flip"
+                    app:drawableTint="?colorPrimaryDark"
                     app:layout_constraintBottom_toTopOf="@id/tv_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,56 +135,17 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- goto current weather -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_current_weather"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="30dp"
-            app:cardBackgroundColor="@color/teal_700"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cv_forecast"
-            app:layout_constraintHeight_percent=".2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_current_weather_info">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:lineSpacingExtra="15dp"
-                android:padding="10dp"
-                android:text="@string/current_weather"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </androidx.cardview.widget.CardView>
-
         <!-- goto forecast -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_forecast"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="30dp"
-            app:cardBackgroundColor="@color/green_200"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="@id/cv_current_weather"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cv_current_weather"
-            app:layout_constraintTop_toTopOf="@id/cv_current_weather">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/forecast"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/forecast"
+            app:icon="@drawable/ic_sun"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

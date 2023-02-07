@@ -2,8 +2,8 @@ package com.m7.openweather.di
 
 import android.content.Context
 import com.m7.openweather.BuildConfig
-import com.m7.openweather.ConnectivityHandler
-import com.m7.openweather.data.remote.APIs
+import com.m7.openweather.util.ConnectivityHandler
+import com.m7.openweather.data.source.remote.APIs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

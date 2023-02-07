@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">OpenWeather</string>
+    <string name="search_hint">Search by %s</string>
+    <string name="search_options">Search Options:</string>
+    <string name="city_name">City Name</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="lat_lng">Latitude/Longitude</string>
+    <string name="current_location">Current Location</string>
+    <string name="enter_valid_input">Enter a valid Input</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="forecast">Forecast</string>
+    <string name="search_history">Search History:</string>
+    <string name="f_celsius">%.02f C</string>
+    <string name="f_fahrenheit">%.02f F</string>
 </resources>

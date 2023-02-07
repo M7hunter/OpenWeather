@@ -1,9 +1,30 @@
 package com.m7.openweather.data.model
 
-class CallResponse<T>(
-    val cod: String,
-    val message: String,
-    val cnt: Int?,
-    val list: List<T>?,
-    val city: City?,
-)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+abstract class CallResponse : Parcelable {
+    abstract val cod: Any
+    abstract val message: String?
+}
+
+@Parcelize
+class WeatherResponse(
+    override val cod: Int,
+    override val message: String? = "no msg provided",
+    val dt: Long,
+    val main: Main,
+    val weather: List<Weather>,
+    val coord: Coord
+) : CallResponse() {
+    val weatherItem get() = weather.firstOrNull()
+}
+
+@Parcelize
+class ForecastResponse(
+    override val cod: String,
+    override val message: String?,
+    val list: List<Forecast>,
+    val cnt: Int,
+    val city: City,
+) : CallResponse()

@@ -1,4 +1,4 @@
-package com.m7.openweather
+package com.m7.openweather.util
 
 import android.content.Context
 import android.net.ConnectivityManager
