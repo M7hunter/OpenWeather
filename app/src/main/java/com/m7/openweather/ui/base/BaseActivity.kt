@@ -18,7 +18,7 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes private val layoutRe
     AppCompatActivity() {
 
     @Inject
-    lateinit var sharedPrefs : SharedPrefManager
+    lateinit var sharedPrefs: SharedPrefManager
 
     lateinit var layoutBinding: B
     private lateinit var snackController: SnackController
@@ -45,11 +45,15 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes private val layoutRe
     }
 
     fun dismissLoading() {
-        if (loadingDialog.isAdded)
-            loadingDialog.dismiss()
+        try {
+            if (loadingDialog.isAdded)
+                loadingDialog.dismiss()
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        }
     }
 
-    fun <T: CallResponse> observe(
+    fun <T : CallResponse> observe(
         observable: StateFlow<CallState<T>?>,
         displayLoading: Boolean = true,
         showMessage: Boolean = false,
@@ -66,9 +70,8 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes private val layoutRe
                             }
                             CallState.Status.SUCCESS -> {
                                 dismissLoading()
-                                if (showMessage)
-                                    msg?.also { showMessage(it) { onSuccess.invoke(data) } }
-                                        ?: onSuccess.invoke(data)
+                                if (showMessage && msg != null)
+                                    showMessage(msg) { onSuccess.invoke(data) }
                                 else
                                     onSuccess.invoke(data)
                             }

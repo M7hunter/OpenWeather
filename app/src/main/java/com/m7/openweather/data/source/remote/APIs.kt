@@ -12,6 +12,7 @@ interface APIs {
     suspend fun weatherByLatLng(
         @Query("lat") lat: String,
         @Query("lon") lng: String,
+        @Query("units") units: String?,
         @Query("appid") apiKey: String,
     ): Response<WeatherResponse>
 
@@ -26,6 +27,14 @@ interface APIs {
         @Query("zip") zip: String,
         @Query("appid") apiKey: String,
     ): Response<WeatherResponse>
+
+    @GET("forecast/daily")
+    suspend fun forecastDailyByLatLng(
+        @Query("lat") lat: String,
+        @Query("lon") lng: String,
+        @Query("appid") apiKey: String,
+        @Query("cnt") count: String,
+    ): Response<ForecastResponse>
 
     @GET("forecast")
     suspend fun forecastByLatLng(

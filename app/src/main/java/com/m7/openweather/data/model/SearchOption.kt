@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import com.m7.openweather.R
 
 data class SearchOption(
-    val name: String,
+    @StringRes val name: Int,
     val optionType: OptionType = OptionType.CityName,
     override val type: SearchType = SearchType.SearchOption,
 ) : Search() {

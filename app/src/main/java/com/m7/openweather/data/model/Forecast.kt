@@ -6,10 +6,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Forecast(
     val dt: Long,
+    val dt_txt: String,
     val main: Main,
+    val temp: Temp,
     val weather: List<Weather>,
 ) : Parcelable {
     val weatherItem get() = weather.firstOrNull()
+    val date get() = dt_txt?.substringBefore(" ")
+    val time get() = dt_txt?.substringAfter(" ")
 }
 
 @Parcelize
@@ -18,9 +22,28 @@ data class Main(
     val feels_like: Float,
 ) : Parcelable {
 
-    fun tempAsCelsius(): Float {
-        return (temp * 9 / 5) + 32
-    }
+    var unit = 'K'
+    val tempAsString get() = String.format("%.02f $unit", temp)
+}
+
+@Parcelize
+data class Temp(
+    val morn: Float,
+    val day: Float,
+    val eve: Float,
+    val night: Float
+
+) : Parcelable {
+
+    val unit = 'K'
+    val tempAsString
+        get() = String.format(
+            "- morn %.02f\n- day %.02f\n- eve %.02f\n- night %.02f $unit",
+            morn,
+            day,
+            eve,
+            night
+        )
 }
 
 @Parcelize

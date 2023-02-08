@@ -16,7 +16,7 @@ class SnackController(private val parentView: View) {
 
     fun displayMessage(msg: String, onDismissed: (() -> Unit)? = null) {
         Snackbar.make(parentView, msg, Snackbar.LENGTH_SHORT).apply {
-            setBackgroundTint(parentView.context.getColor(R.color.green_200))
+            setBackgroundTint(parentView.context.getColor(R.color.yellow_200))
             setTextColor(Color.WHITE)
         }.addCallback(snackCallback { onDismissed?.invoke() }).show()
     }

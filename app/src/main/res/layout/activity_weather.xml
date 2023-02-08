@@ -7,15 +7,12 @@
     <data>
 
         <variable
-            name="location"
-            type="com.m7.openweather.data.model.SearchResult" />
-
-        <variable
-            name="forecast"
+            name="weather"
             type="com.m7.openweather.data.model.WeatherResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_weather_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,6 +20,7 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            android:elevation="1dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -47,7 +45,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="20dp"
-                    android:text="@{location.name ?? @string/current_weather}"
+                    android:text="@{weather.name ?? @string/current_weather}"
                     android:textColor="?colorOnPrimary"
                     android:textSize="18sp"
                     tools:text="@tools:sample/cities" />
@@ -78,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar"
-            app:strokeColor="@color/green_500"
+            app:strokeColor="?colorPrimary"
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +90,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="30dp"
                     android:gravity="center"
-                    android:text="@{forecast.weatherItem.description}"
+                    android:text="@{weather.weatherItem.description}"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_temp"
@@ -108,7 +106,7 @@
                     android:foreground="?selectableItemBackground"
                     android:gravity="center"
                     android:paddingHorizontal="50dp"
-                    android:text="@{@string/f_fahrenheit(forecast.main.temp)}"
+                    android:text="@{weather.main.tempAsString}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:drawableEndCompat="@drawable/ic_flip"
@@ -121,7 +119,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_icon"
-                    iconCode="@{forecast.weatherItem.icon}"
+                    iconCode="@{weather.weatherItem.icon}"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/ic_sun"

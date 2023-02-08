@@ -13,7 +13,7 @@ import com.m7.openweather.databinding.ItemSearchResultBinding
 import com.m7.openweather.databinding.ItemSearchTitleBinding
 
 class SearchAdapter(
-    private val searchList: MutableList<Search>,
+    private val searchList: List<Search>,
     private val onOptionClicked: (SearchOption) -> Unit,
     private val onLocationClicked: (SearchResult) -> Unit,
 ) :
@@ -30,7 +30,7 @@ class SearchAdapter(
         }
     }
 
-    private var selectedOptionPos = 0
+    private var selectedOptionPos = 1
 
     inner class OptionViewHolder(private val itemBinding: ItemSearchOptionBinding) :
         MainViewHolder(itemBinding.root) {
@@ -55,7 +55,7 @@ class SearchAdapter(
         }
     }
 
-    inner class SearchViewHolder(private val itemBinding: ItemSearchResultBinding) :
+    inner class ResultViewHolder(private val itemBinding: ItemSearchResultBinding) :
         MainViewHolder(itemBinding.root) {
         override fun bind(itemData: Search) {
             itemBinding.apply {
@@ -66,10 +66,6 @@ class SearchAdapter(
                 }
             }
         }
-    }
-
-    fun addResults(results: List<SearchResult>) {
-        searchList.addAll(searchList.size, results)
     }
 
     override fun getItemViewType(position: Int): Int = searchList[position].type.ordinal
@@ -96,7 +92,7 @@ class SearchAdapter(
                 )
 
             else -> {
-                SearchViewHolder(
+                ResultViewHolder(
                     DataBindingUtil.inflate(
                         LayoutInflater.from(parent.context),
                         R.layout.item_search_result,

@@ -10,6 +10,5 @@
     <string name="current_weather">Current Weather</string>
     <string name="forecast">Forecast</string>
     <string name="search_history">Search History:</string>
-    <string name="f_celsius">%.02f C</string>
-    <string name="f_fahrenheit">%.02f F</string>
+    <string name="permissions_denied_error">Permissions are required to get your coordinates</string>
 </resources>

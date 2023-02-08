@@ -18,10 +18,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        weatherViewModel.getLastWeather()
         layoutBinding.apply {
-            sharedPrefs.getSearchLocations()?.lastOrNull()?.also {
-                weatherViewModel.getByLatLng(it.lat, it.lng)
-            }
 
             observe(weatherViewModel.dataState) {
                 it?.also {

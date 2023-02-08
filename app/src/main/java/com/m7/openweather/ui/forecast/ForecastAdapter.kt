@@ -8,13 +8,16 @@ import com.m7.openweather.R
 import com.m7.openweather.data.model.Forecast
 import com.m7.openweather.databinding.ItemForecastBinding
 
-class ForecastAdapter(private val list: List<Forecast>) :
+class ForecastAdapter(val list: List<Forecast>) :
     RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
-    class ViewHolder(private val itemBinding: ItemForecastBinding) :
+    inner class ViewHolder(private val itemBinding: ItemForecastBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(itemData: Forecast) {
-            itemBinding.forecast = itemData
+            itemBinding.apply {
+                forecast = itemData
+                isSubDate = adapterPosition > 0 && itemData.date == list[adapterPosition - 1].date
+            }
         }
     }
 

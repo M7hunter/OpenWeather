@@ -12,6 +12,8 @@ abstract class CallResponse : Parcelable {
 class WeatherResponse(
     override val cod: Int,
     override val message: String? = "no msg provided",
+    val id: Long,
+    val name: String,
     val dt: Long,
     val main: Main,
     val weather: List<Weather>,

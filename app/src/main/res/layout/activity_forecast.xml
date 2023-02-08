@@ -7,16 +7,18 @@
     <data>
 
         <variable
-            name="location"
-            type="com.m7.openweather.data.model.SearchResult" />
+            name="locationName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_forecast_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
+            android:elevation="1dp"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
@@ -28,10 +30,10 @@
                 <!-- back -->
                 <Button
                     android:id="@+id/btn_back"
-                    android:foreground="?actionBarItemBackground"
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:foreground="?actionBarItemBackground"
                     app:icon="@drawable/ic_back"
                     app:iconSize="25dp"
                     app:iconTint="?colorOnPrimary" />
@@ -43,18 +45,29 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="20dp"
-                    android:text="@{location.name ?? @string/forecast}"
+                    android:text="@{locationName ?? @string/forecast}"
                     android:textColor="?colorOnPrimary"
                     android:textSize="18sp"
                     tools:text="@tools:sample/cities" />
 
                 <!-- search -->
                 <Button
-                    android:id="@+id/btn_search"
-                    android:foreground="?actionBarItemBackground"
+                    android:id="@+id/btn_filter"
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:foreground="?actionBarItemBackground"
+                    app:icon="@drawable/ic_filter"
+                    app:iconSize="25dp"
+                    app:iconTint="?colorOnPrimary" />
+
+                <!-- search -->
+                <Button
+                    android:id="@+id/btn_search"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:foreground="?actionBarItemBackground"
                     app:icon="@drawable/ic_search"
                     app:iconSize="25dp"
                     app:iconTint="?colorOnPrimary" />

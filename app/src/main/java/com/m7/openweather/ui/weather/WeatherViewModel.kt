@@ -2,6 +2,7 @@ package com.m7.openweather.ui.weather
 
 import androidx.lifecycle.viewModelScope
 import com.m7.openweather.data.model.CallState
+import com.m7.openweather.data.model.Option.TempUnit
 import com.m7.openweather.data.model.WeatherResponse
 import com.m7.openweather.data.repo.WeatherRepo
 import com.m7.openweather.ui.search.SearchViewModel
@@ -19,9 +20,9 @@ class WeatherViewModel @Inject constructor(
     private val _weatherData = MutableStateFlow<CallState<WeatherResponse>?>(null)
     override val dataState = _weatherData.asStateFlow()
 
-    override fun getByLatLng(lat: String, lng: String) {
+    override fun getByLatLng(lat: String, lng: String, unit: TempUnit?) {
         viewModelScope.launch {
-            weatherRepo.getWeatherByLatLng(_weatherData, lat, lng)
+            weatherRepo.getWeatherByLatLng(_weatherData, lat, lng, unit)
         }
     }
 
@@ -36,4 +37,13 @@ class WeatherViewModel @Inject constructor(
             weatherRepo.getWeatherByZip(_weatherData, zip)
         }
     }
+
+    fun getLastWeather() {
+        viewModelScope.launch {
+            weatherRepo.getLastWeather(_weatherData)
+        }
+    }
+
+    override fun getSearchList() =
+        options.toMutableList().apply { addAll(weatherRepo.getSearchHistory()) }
 }
